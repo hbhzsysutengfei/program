@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+    <bean id = "dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/lolvideoadmin_production?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="221256"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="500"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+    
+    <bean id = "sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatisConfig.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+     <!--  -->
+    <bean id="videoTypeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.VideoTypeDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="videoTypeService" class="com.yang.lolvideo.service.impl.VideoTypeServiceImpl">
+        <property name="videoTypeDao" ref="videoTypeDao"/>
+    </bean>
+    
+     <!--  -->
+    <bean id="heroDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.HeroDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="heroService" class="com.yang.lolvideo.service.impl.HeroServiceImpl">
+        <property name="heroDao" ref="heroDao"/>
+    </bean>
+    
+     <!--  -->
+    <bean id="userLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    	<property name="mapperInterface" value="com.yang.lolvideo.dao.UserLogDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="userLogService" class="com.yang.lolvideo.service.impl.UserLogServiceImpl">
+    	<property name="userLogDao" ref="userLogDao"/>
+    </bean>
+    
+ 	<!--  -->
+    <bean id="announcerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.AnnouncerDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="announcerService" class="com.yang.lolvideo.service.impl.AnnouncerServiceImpl">
+        <property name="announcerDao" ref="announcerDao"/>
+    </bean>
+    
+    <!--  -->
+    <bean id="bulletinDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.BulletinDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="bulletinService" class="com.yang.lolvideo.service.impl.BulletinServiceImpl">
+        <property name="bulletinDao" ref="bulletinDao"/>
+    </bean>
+    
+    <!--  -->
+    <bean id="catalogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.CatalogDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="catalogService" class="com.yang.lolvideo.service.impl.CatalogServiceImpl">
+        <property name="catalogDao" ref="catalogDao"/>
+    </bean>
+    
+    <!-- video dao and  service  -->
+    <bean id="videoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.VideoDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="videoService" class="com.yang.lolvideo.service.impl.VideoServiceImpl">
+        <property name="videoDao" ref="videoDao"/>
+    </bean>
+    
+    <!-- version dao and service -->
+    <bean id="versionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.VersionDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="versionService" class="com.yang.lolvideo.service.impl.VersionServiceImpl">
+        <property name="versionDao" ref="versionDao" />
+    </bean>
+    
+    <!-- Episode dao and service -->
+    <bean id="episodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.EpisodeDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="episodeService" class="com.yang.lolvideo.service.impl.EpisodeServiceImpl">
+        <property name="episodeDao" ref="episodeDao"/>
+    </bean>
+    
+    
+    <!-- userKeyword dao & service -->
+    <bean id="userKeywordDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+        <property name="mapperInterface" value="com.yang.lolvideo.dao.UserKeywordDao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="userKeywordService" class="com.yang.lolvideo.service.impl.UserKeywordServiceImpl">
+        <property name="userKeywordDao" ref="userKeywordDao"/>
+    </bean>
+</beans>

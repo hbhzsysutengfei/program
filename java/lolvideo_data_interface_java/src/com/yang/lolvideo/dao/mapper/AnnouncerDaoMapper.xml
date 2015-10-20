@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.AnnouncerDao">
+    <select id="getAnnouncerCount" resultType="int">
+        select count(*) from announcers where true;
+    </select>
+    <select id="getAnnouncers" resultType="com.yang.lolvideo.model.Announcer">
+		select id,name,face,face1,face2 from announcers where visible=1 order by priority desc, updated_at desc limit #{start},#{limit};
+    </select>
+    <select id="getAnnouncerByName" resultType="com.yang.lolvideo.model.Announcer">
+        select id,name,face,face1,face2 from announcers where visible=1 
+        <if test="name != null">
+            and name like #{name}
+        </if>
+        limit 1
+    </select>
+</mapper>

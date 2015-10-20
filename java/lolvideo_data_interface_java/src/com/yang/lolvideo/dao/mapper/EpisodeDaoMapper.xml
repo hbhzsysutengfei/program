@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.EpisodeDao">
+    <select id="getEpisodes" resultType="com.yang.lolvideo.model.Episode">
+        select id, title, snapshot from episodes where visible=true order by priority,created_at limit #{start}, #{limit};
+    </select>
+    <select id="getEpisodeById" resultType="com.yang.lolvideo.model.Episode">
+        select id, title, snapshot
+        from episodes
+        where id = #{id}
+    </select>
+    <select id="getEpisodeByTitle" resultType="com.yang.lolvideo.model.Episode">
+        select id, title, snapshot from episodes where visible = true
+        <if test="title != null">
+            and title like #{title}
+        </if>
+        limit 1
+    </select>
+</mapper>

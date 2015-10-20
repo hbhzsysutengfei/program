@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/com/yang/lolvideo/handler/request/IRequestHandler.java=UTF-8
+encoding//src/com/yang/lolvideo/handler/request/RequestSearchVideos.java=UTF-8
+encoding//src/com/yang/lolvideo/jetty/handler/LolHandler.java=UTF-8

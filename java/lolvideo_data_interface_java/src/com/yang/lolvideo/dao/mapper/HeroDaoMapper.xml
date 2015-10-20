@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.HeroDao">
+    <select id="getHeroCount" resultType="int">
+        select count(*) from heros where true
+        <if test="hero_types != null">
+            and hero_types like #{hero_types}
+        </if>
+    </select>
+    <select id="getHeros" resultType="com.yang.lolvideo.model.Hero">
+        select id,name,nick,face,face1,face2,hero_types,flag from heros where true
+        <if test="hero_types != null">
+            and hero_types like #{hero_types}
+        </if>        
+        order by flag desc, priority desc, updated_at desc limit #{start},#{limit}
+    </select>
+    
+    <select id="getHeroByName" resultType = "com.yang.lolvideo.model.Hero">
+        select id,name,nick,face,face1,face2,hero_types,flag from heros where true
+        <if test="name != null">
+            and ( name like #{name} or nick like #{name} )
+        </if>
+        limit 1
+    </select>
+    
+</mapper>

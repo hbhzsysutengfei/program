@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.VersionDao">
+    <select id="getLatestVersion" resultType="com.yang.lolvideo.model.Version">
+        select version,version_code,download_url,platform from client_versions where available = 1 
+        <if test="platform != null">
+            and platform = #{platform}
+        </if>
+         order by version_code desc limit 1
+    </select>
+</mapper>
