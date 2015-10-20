@@ -1,6 +1,6 @@
 Lol Video Data Interface Introduction 
 
-Updated at 2013.09.08 
+Updated at 2015.10.20 
 
 1.request the announcers infomation
   request format: /announcers?mac=[string]&i=[int]&lo=[int]&v=[string versionOfClient]&&p=[android|ios]
@@ -157,14 +157,14 @@ Updated at 2013.09.08
 	what's more, the system matches the keywords by the order of hero name , announcers ame, episode title, video_type
 	
 	
-Note：
+Note锛�
 1.the request video set by keywords is in developing.
 2.if  you meet any problem, please contact Me 
 3.if you find any bugs, i expect your feedback 
 
 Yang Tengfei 
 hbhz.sysu.tengfei@qq.com
-2013.09.08
+2015.10.20
 	
 	
 	
