@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.VideoTypeDao">
+    <select id="getAllHeroTypes" resultType="com.yang.lolvideo.model.VideoType">
+        select id, type_name as name, cat_code as type from video_types where visible=1 and cat_code='heros' order by priority desc, updated_at desc;
+    </select>
+    <select id="getAllVieoTypes" resultType="com.yang.lolvideo.model.VideoType">
+        select id, type_name as name, cat_code as type from video_types where visible=1 and cat_code='video' order by priority desc, updated_at desc;
+    </select>
+    <select id="getAllTypes" resultType="com.yang.lolvideo.model.VideoType">
+        select id, type_name as name, cat_code as type from video_types where visible=1 order by priority desc, updated_at desc;
+    </select>
+    <select id="getVideoTypeByName" resultType="com.yang.lolvideo.model.VideoType">
+        select id, type_name as name, cat_code as type from video_types where visible = 1 and cat_code='video' 
+        <if test="name != null">
+            and type_name = #{name}
+        </if>
+        limit 1;
+    </select>
+</mapper>

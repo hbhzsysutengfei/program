@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.UserLogDao">
+    <insert id="insert" parameterType="com.yang.lolvideo.dao.UserLogDao">
+        insert into user_statistics 
+        (ip,url,query,created_at,updated_at,version,platform,mac)
+        values(#{ip},#{url},#{query},#{created_at},#{updated_at},#{version},#{platform},#{mac});
+    </insert>
+    <cache>
+    	<property name="eviction" value="LRU"/>
+    	<property name="flushInterval" value="60000"/>
+    	<property name="size" value="1024"/>
+    	<property name="readOnly" value="true"/>
+    </cache>
+</mapper>

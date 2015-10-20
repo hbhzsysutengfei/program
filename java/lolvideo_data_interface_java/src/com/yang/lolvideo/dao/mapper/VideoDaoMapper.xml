@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.lolvideo.dao.VideoDao">
+    <select id="getVideoCount" resultType="int">
+        select count(id) from video_units
+        where visible = 1
+        <if test="title != null ">
+            and title like #{title} 
+        </if>
+        <if test="heros != null">
+            and heros like #{heros}
+        </if>
+        <if test="announcers != null">
+            and announcers like #{announcers}
+        </if>
+        <if test="video_catalog_id > 0">
+            and video_catalog_id = #{video_catalog_id}
+        </if>
+        <if test="video_types != null">
+            and video_types like #{video_types}
+        </if>
+        <if test="episode_id > 0">
+            and episode_id = #{episode_id}
+        </if>
+    </select>
+    
+    <select id="getVideos" resultType="com.yang.lolvideo.model.Video">
+        select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments,announcers
+        from video_units
+        where visible = 1
+        <if test="title != null ">
+            and  title like #{title}
+        </if>
+        <if test="heros != null">
+            and heros like #{heros}
+        </if>
+        <if test="announcers != null">
+            and announcers like #{announcers}
+        </if>
+        <if test="video_catalog_id > 0">
+            and video_catalog_id = #{video_catalog_id}
+        </if>
+        <if test="video_types != null">
+            and video_types like #{video_types}
+        </if>
+        <if test="episode_id > 0">
+            and episode_id = #{episode_id}
+        </if>
+		order by priority desc, updated_at desc limit #{start},#{limit}  
+    </select>
+    <!-- 
+   			@Param("title")				String 		title,// like	
+			@Param("heros")				String 		heros,// like
+			@Param("announcers")		String 		announcers,// like
+			@Param("video_catalog_id") 	int 		video_catalog_id, // =
+			@Param("video_types")		String		video_types, // like
+			@Param("episode_id")		int			episode_id, // = 
+			@Param("start")				int 		start, 
+			@Param("limit") 			int 		limit
+     -->
+    <select id="getHeroVideos" resultType="com.yang.lolvideo.model.Video">
+        select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments,announcers
+        from video_units
+        where visible = 1
+        <if test="heros != null">
+            and heros like #{heros}
+        </if>
+        order by priority desc, updated_at desc limit #{start},#{limit}        
+	</select>
+	<select id="getHeroVideoCount" resultType="int">
+        select count(id) from video_units
+        where visible=1
+        <if test="heros != null">
+           and heros like #{heros}
+        </if> 
+    </select>
+    
+	<select id="getAnnouncerVideoCount" resultType="int">
+	    select count(id) from video_units
+	    where visible = 1
+	    <if test="announcers != null">
+           and announcers like #{announcers}
+        </if> 
+	</select>
+	<select id="getAnnouncerVideos" resultType="com.yang.lolvideo.model.Video">
+	    select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments, announcers
+	    from video_units
+	    where visible = 1
+	    <if test="announcers != null">
+	        and announcers like #{announcers}
+	    </if>
+	    order by priority desc, updated_at desc limit #{start},#{limit}  
+	</select>
+	
+	<select id="getEpisodeVideoCount" resultType="int">
+	    select count(id) from video_units
+	    where visible =1
+	    <if test="episode_id != null">
+	        and episode_id = #{episode_id}
+	    </if>
+	</select>
+	<select id="getEpisodeVideos" resultType="com.yang.lolvideo.model.Video">
+	    select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments, announcers
+	    from video_units
+	    where visible = 1
+	    <if test="episode_id != null">
+	        and episode_id = #{episode_id}
+	    </if>
+	    order by priority desc, updated_at desc limit #{start},#{limit}  
+	</select>
+	
+	<select id="getCatalogVideoCount" resultType="int">
+	    select count(id) from video_units
+	    where visible = true
+	    <if test="catalog_id !=null">
+	        and video_catalog_id = #{catalog_id}
+	    </if>
+	    <if test="video_types != null">
+	        and video_types like #{video_types}
+	    </if>
+	</select>
+	<select id="getCatalogVideos" resultType="com.yang.lolvideo.model.Video">
+	    select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments, announcers
+	    from video_units
+	    where visible = 1
+	    <if test="catalog_id != null">
+	        and video_catalog_id = #{catalog_id}
+	    </if>
+	    <if test="video_types != null ">
+	        and video_types like #{video_types}
+	    </if>
+	    order by priority desc, updated_at desc limit #{start},#{limit}  
+	</select>
+	
+	<select id="getVideoById" resultType="com.yang.lolvideo.model.Video">
+	    select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments, announcers
+	    from video_units
+	    where visible = 1 and id = #{id}
+	</select>
+	
+	<select id="getVideoCountByTags" resultType="int">
+		select count(id) from video_units 
+		where visible=1
+		<if test="tags != null">
+			and tags = #{tags}
+		</if>
+	</select>
+	<select id="getVideosByTags" resultType="com.yang.lolvideo.model.Video">
+	    select id, title, `desc`, tags, episode_id, target_url, video_catalog_id, hits, snapshot, snapshot1, snapshot2, updated_at,convert_params, comments, announcers
+	    from video_units
+	    where visible=1 
+	    <if test="tags!=null">
+	    	and	tags = #{tags}
+	    </if> 
+	    order by priority desc, updated_at desc limit #{start},#{limit} 
+	</select>	
+</mapper>
